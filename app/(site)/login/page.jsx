@@ -1,6 +1,8 @@
 'use client'
 import React, { useState } from 'react'
 import logo from '../../assets/logo.png';
+import github from '../../assets/github.svg'
+import google from '../../assets/google.svg'
 import Image from 'next/image';
 import axios from 'axios';
 import { signIn } from 'next-auth/react';
@@ -56,6 +58,24 @@ export default function Register() {
                             Already a member?
                             <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"> Sign In</a>
                         </p>
+                    </div>
+                    <div className='flex items-center justify-center'>
+                        <button
+                            type="button"
+                            className="inline-flex flex-col items-center rounded-md px-3 py-2 my-2 text-sm font-semibold hover:bg-black/80"
+                            onClick={() => signIn('github')}
+                        >
+                            <Image src={github} height={50} width={50} />
+                            <p>Sign In with Github</p>
+                        </button>
+                        <button
+                            type="button"
+                            className="inline-flex flex-col items-center rounded-md px-3 py-2 my-2 text-sm font-semibold hover:bg-black/80"
+                            onClick={() => signIn('google')}
+                        >
+                            <Image src={google} height={50} width={50} />
+                            <p>Sign In with Google</p>
+                        </button>
                     </div>
                 </div>
             </div>
