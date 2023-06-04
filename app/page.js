@@ -3,7 +3,6 @@ import { authOptions } from './api/auth/[...nextauth]/route'
 import User from './components/user'
 export default async function Home() {
   const session = await getServerSession(authOptions)
-  console.log(session)
   return (
     <section>
       <h2>Home</h2>

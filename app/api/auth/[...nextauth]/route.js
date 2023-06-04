@@ -1,5 +1,7 @@
 import NextAuth from "next-auth/next"
 import prisma from "../../../libs/prismadb"
+import { signJwtAccessToken } from "../../../libs/jwt"
+
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google"
@@ -49,10 +51,28 @@ export const authOptions = {
                 if (!passwordMatch) {
                     throw new Error('Incorrect password')
                 }
-                return user
+                if (user && passwordMatch) {
+                    const { hashedPassword, ...userWithoutPass } = user;
+                    const accessToken = signJwtAccessToken(userWithoutPass);
+                    const result = {
+                        ...userWithoutPass,
+                        accessToken,
+                    }
+                    return result
+                }
             }
         })
     ],
+    callbacks: {
+        async jwt({ token, user }) {
+            console.log(user)
+            return { ...token, ...user };
+        },
+        async session({ session, token, user }) {
+            session.user = token
+            return session;
+        }
+    },
     pages: {
         signIn: "/auth/login",
     },

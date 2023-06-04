@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import logo from '../../assets/logo.png';
 import github from '../../assets/github.svg'
 import google from '../../assets/google.svg'
-import spinner from '../../assets/spinner.svg'
 import Image from 'next/image';
 import axios from 'axios';
 import { signIn } from 'next-auth/react';
@@ -43,11 +42,11 @@ export default function Register() {
         signIn('github', { callbackUrl: '/', redirect: false })
             .then((callback) => {
                 if (callback?.error) {
-                    toast.error(callback.error);
+                    toast.error(callback.error)
                 }
                 if (callback?.ok && !callback?.error) {
-                    toast.success('Logged in with GitHub');
-                    window.location.href = '/';
+                    toast.success('Logged in with GitHub')
+                    window.location.href = '/'
                 }
             })
             .finally(() => {
@@ -61,11 +60,11 @@ export default function Register() {
         signIn('google', { callbackUrl: '/', redirect: false })
             .then((callback) => {
                 if (callback?.error) {
-                    toast.error(callback.error);
+                    toast.error(callback.error)
                 }
                 if (callback?.ok && !callback?.error) {
-                    toast.success('Logged in with Google');
-                    window.location.href = '/';
+                    toast.success('Logged in with Google')
+                    window.location.href = '/'
                 }
             })
             .finally(() => {
